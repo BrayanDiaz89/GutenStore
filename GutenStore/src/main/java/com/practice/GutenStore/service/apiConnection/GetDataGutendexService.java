@@ -1,4 +1,4 @@
-package com.practice.GutenStore.service;
+package com.practice.GutenStore.service.apiConnection;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.practice.GutenStore.config.WebClient;

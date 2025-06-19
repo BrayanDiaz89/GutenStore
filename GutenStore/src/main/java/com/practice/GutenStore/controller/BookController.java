@@ -2,8 +2,8 @@ package com.practice.GutenStore.controller;
 
 import com.practice.GutenStore.model.dto.api.DataBook;
 import com.practice.GutenStore.model.dto.api.RequestDTO;
-import com.practice.GutenStore.service.GetDataGutendexService;
-import com.practice.GutenStore.service.GutenStoreResponseService;
+import com.practice.GutenStore.service.apiConnection.GetDataGutendexService;
+import com.practice.GutenStore.service.apiConnection.GutenStoreResponseService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;

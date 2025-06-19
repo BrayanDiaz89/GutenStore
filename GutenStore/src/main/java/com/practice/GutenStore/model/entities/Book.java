@@ -1,10 +1,12 @@
 package com.practice.GutenStore.model.entities;
 
+import com.practice.GutenStore.model.dto.api.DataBook;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Table(name = "books")
 @Entity(name = "Book")
@@ -25,7 +27,7 @@ public class Book {
     private String poster;
     private String e_book;
     @Column(name = "number_downloads")
-    private Double numberDownloads;
+    private Integer numberDownloads;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
@@ -38,4 +40,11 @@ public class Book {
     @Column(name = "is_active")
     private Boolean isActive;
 
+    public Book(DataBook dataBook) {
+         this.title = dataBook.title();
+         this.lang = dataBook.languages() != null ? String.join(", ", dataBook.languages()) : "";
+         this.poster = dataBook.formats().poster();
+         this.e_book = dataBook.formats().e_book();
+         this.numberDownloads = dataBook.numberDownloads();
+    }
 }

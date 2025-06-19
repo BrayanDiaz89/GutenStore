@@ -1,4 +1,4 @@
-package com.practice.GutenStore.service;
+package com.practice.GutenStore.service.apiConnection;
 
 import com.practice.GutenStore.model.dto.api.DataBook;
 import com.practice.GutenStore.model.dto.api.GutendexAPIResponse;
@@ -11,7 +11,6 @@ public class GutenStoreResponseService {
         if(data.books() == null || data.books().isEmpty()){
             return null;
         }
-        DataBook dataBook = data.books().get(0);
-        return dataBook;
+        return data.books().getFirst();
     }
 }

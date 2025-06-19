@@ -3,6 +3,6 @@ CREATE TABLE books (
     title VARCHAR(255) UNIQUE NOT NULL,
     lang VARCHAR(20) NOT NULL,
     poster VARCHAR(255),
-    number_downloads DOUBLE PRECISION,
+    number_downloads INTEGER,
     e_book VARCHAR(255)
 );
