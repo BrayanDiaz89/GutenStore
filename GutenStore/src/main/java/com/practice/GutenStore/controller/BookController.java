@@ -1,7 +1,7 @@
 package com.practice.GutenStore.controller;
 
+import com.practice.GutenStore.model.dto.api.DataBook;
 import com.practice.GutenStore.model.dto.api.RequestDTO;
-import com.practice.GutenStore.model.dto.model.DataBookResponseDTO;
 import com.practice.GutenStore.service.GetDataGutendexService;
 import com.practice.GutenStore.service.GutenStoreResponseService;
 import jakarta.validation.Valid;
@@ -22,7 +22,7 @@ public class BookController {
     private GutenStoreResponseService gutenStoreService;
 
     @PostMapping("/book")
-    public Mono<DataBookResponseDTO> getDataGutendex(@RequestBody @Valid RequestDTO request){
+    public Mono<DataBook> getDataGutendex(@RequestBody @Valid RequestDTO request){
         return getData.getDataFromGutendex(request)
                 .map(gutenStoreService::serviceResponse);
     }

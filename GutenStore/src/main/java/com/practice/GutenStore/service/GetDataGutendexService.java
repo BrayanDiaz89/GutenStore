@@ -2,7 +2,7 @@ package com.practice.GutenStore.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.practice.GutenStore.config.WebClient;
-import com.practice.GutenStore.model.dto.api.DataBookDTO;
+import com.practice.GutenStore.model.dto.api.GutendexAPIResponse;
 import com.practice.GutenStore.model.dto.api.RequestDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatusCode;
@@ -17,7 +17,7 @@ public class GetDataGutendexService {
     @Autowired
     private ObjectMapper objectMapper;
 
-    public Mono<DataBookDTO> getDataFromGutendex(RequestDTO request){
+    public Mono<GutendexAPIResponse> getDataFromGutendex(RequestDTO request){
 
         return webClient.openGutendexClient().get()
                 .uri(uriBuilder -> uriBuilder
@@ -30,15 +30,11 @@ public class GetDataGutendexService {
                 .onStatus(HttpStatusCode::is5xxServerError, response ->
                         Mono.error(new RuntimeException("Error del servidor. Intenta más tarde."))
                 )
-                .bodyToMono(DataBookDTO.class)
+                .bodyToMono(GutendexAPIResponse.class)
                 .map(apiResponse -> {
                     try{
-                        return new DataBookDTO(
-                                apiResponse.title(),
-                                apiResponse.authors(),
-                                apiResponse.languages(),
-                                apiResponse.formats(),
-                                apiResponse.numberDownloads()
+                        return new GutendexAPIResponse(
+                                apiResponse.books()
                         );
                     }catch (Exception e){
                         throw new RuntimeException("Error parsing JSON: " + e.getMessage());
