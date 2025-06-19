@@ -1,6 +1,6 @@
 package com.practice.GutenStore.model.dto.api;
 
-public record GutendexResponseDTO(
-
+public record RequestDTO(
+        String bookTitle
         ) {
 }

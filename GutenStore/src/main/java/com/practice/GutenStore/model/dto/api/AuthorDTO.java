@@ -4,8 +4,9 @@ import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public record FormatsDTO(
-        @JsonAlias("image/jpeg") String poster,
-        @JsonAlias("application/octet-stream") String e_book
+public record AuthorDTO(
+        @JsonAlias("name") String authorName,
+        @JsonAlias("birth_year") Integer birthYear,
+        @JsonAlias("death_year") Integer deathYear
 ) {
 }
