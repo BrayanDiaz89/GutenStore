@@ -12,17 +12,19 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
-@EqualsAndHashCode(of = "id_author")
+@EqualsAndHashCode(of = "idAuthor")
 public class Author {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_author;
-    @Column(nullable = false)
-    private String name_author;
-
-    private Integer birth_year;
-    private Integer death_year;
+    @Column(name = "id_author")
+    private Long idAuthor;
+    @Column(nullable = false, name = "name_author")
+    private String nameAuthor;
+    @Column(name = "birth_year")
+    private Integer birthYear;
+    @Column(name = "death_year")
+    private Integer deathYear;
 
     @ManyToMany(mappedBy = "authors", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Book> books = new ArrayList<>();

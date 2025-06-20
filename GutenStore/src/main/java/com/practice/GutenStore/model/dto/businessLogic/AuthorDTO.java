@@ -1,4 +1,4 @@
-package com.practice.GutenStore.model.dto.api;
+package com.practice.GutenStore.model.dto.businessLogic;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

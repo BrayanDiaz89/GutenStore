@@ -1,12 +1,11 @@
 package com.practice.GutenStore.model.entities;
 
-import com.practice.GutenStore.model.dto.api.DataBook;
+import com.practice.GutenStore.model.dto.businessLogic.DataBook;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Table(name = "books")
 @Entity(name = "Book")
