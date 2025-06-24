@@ -24,8 +24,12 @@ public class BookController {
     private GutenStoreResponseService gutenStoreService;
 
     @PostMapping("/book")
-    public ResponseEntity<Mono<DataBook>> getDataGutendex(@RequestBody @Valid RequestDTO request){
-        return ResponseEntity.status(HttpStatus.CREATED).body(getData.getDataFromGutendex(request)
-                .map(gutenStoreService::serviceResponse));
+    public Mono<ResponseEntity<DataBook>> getDataGutendex(@RequestBody @Valid RequestDTO request) {
+        return getData.getDataFromGutendex(request)
+                .map(gutenStoreService::serviceResponse)
+                .map(saveResult -> {
+                    HttpStatus status = saveResult.alreadyExists() ? HttpStatus.OK : HttpStatus.CREATED;
+                    return ResponseEntity.status(status).body(saveResult.dataBook());
+                });
     }
 }
