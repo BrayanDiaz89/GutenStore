@@ -1,4 +1,4 @@
-package com.practice.GutenStore.service.apiConnection;
+package com.practice.GutenStore.service.apiConnection.components;
 
 import com.practice.GutenStore.model.dto.businessLogic.AuthorDTO;
 import com.practice.GutenStore.model.dto.businessLogic.DataBook;

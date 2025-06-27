@@ -2,16 +2,17 @@ package com.practice.GutenStore.controller;
 
 import com.practice.GutenStore.model.dto.businessLogic.DataBook;
 import com.practice.GutenStore.model.dto.api.RequestDTO;
+import com.practice.GutenStore.model.entities.Book;
 import com.practice.GutenStore.service.apiConnection.GetDataGutendexService;
 import com.practice.GutenStore.service.apiConnection.GutenStoreResponseService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
 @RestController
@@ -31,5 +32,10 @@ public class BookController {
                     HttpStatus status = saveResult.alreadyExists() ? HttpStatus.OK : HttpStatus.CREATED;
                     return ResponseEntity.status(status).body(saveResult.dataBook());
                 });
+    }
+    //Listar libros en base de datos
+    @GetMapping("/books")
+    public Mono<ResponseEntity<Page<Book>>> getAllBooks(@PageableDefault(size = 5) Pageable pageable){
+        return
     }
 }
