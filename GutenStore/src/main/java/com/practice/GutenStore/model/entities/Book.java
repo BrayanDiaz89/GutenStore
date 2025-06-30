@@ -3,7 +3,6 @@ package com.practice.GutenStore.model.entities;
 import com.practice.GutenStore.model.dto.businessLogic.DataBook;
 import jakarta.persistence.*;
 import lombok.*;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,8 +22,9 @@ public class Book {
     private String title;
 
     private String lang;
-    private String poster;
-    private String e_book;
+    
+    @Embedded
+    private Formats formats;
     @Column(name = "number_downloads")
     private Integer numberDownloads;
 
@@ -42,8 +42,7 @@ public class Book {
     public Book(DataBook dataBook) {
          this.title = dataBook.title();
          this.lang = dataBook.languages() != null ? String.join(", ", dataBook.languages()) : "";
-         this.poster = dataBook.formats().poster();
-         this.e_book = dataBook.formats().e_book();
+         this.formats = new Formats(dataBook.formats().poster(), dataBook.formats().e_book());
          this.numberDownloads = dataBook.numberDownloads();
     }
 }

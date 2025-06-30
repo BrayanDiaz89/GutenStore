@@ -13,8 +13,8 @@ public record DataBook(
         FormatsDTO formats,
         @JsonAlias("download_count") Integer numberDownloads
 ) {
-    public DataBook(Book book) {
+    /*public DataBook(Book book) {
         this(book.getTitle(), book.getAuthors(), book.getLang(),
-                book);
-    }
+                book.getFormats(), book.getNumberDownloads());
+    }*/
 }

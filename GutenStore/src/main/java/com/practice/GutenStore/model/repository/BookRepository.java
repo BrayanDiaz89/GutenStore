@@ -10,6 +10,6 @@ import java.util.Optional;
 
 public interface BookRepository extends JpaRepository<Book, Long> {
     Optional<Book> findByTitle(String title);
-    Page<Book> findByActiveTrue(Pageable pageable);
+    //Page<Book> findByActiveTrue(Pageable pageable);
 
 }

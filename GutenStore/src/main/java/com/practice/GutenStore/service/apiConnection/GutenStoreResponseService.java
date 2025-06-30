@@ -25,9 +25,9 @@ public class GutenStoreResponseService {
         return saveToDB.saveBookToDB(data);
     }
 
-    public Page<DataBook> serviceGetBooksActive(Pageable pageable) {
+    /*public Page<DataBook> serviceGetBooksActive(Pageable pageable) {
         return bookRepository.findByActiveTrue(pageable)
                 .map(DataBook::new);
-    }
+    }*/
 
 }
