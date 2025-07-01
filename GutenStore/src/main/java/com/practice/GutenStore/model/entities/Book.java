@@ -1,5 +1,6 @@
 package com.practice.GutenStore.model.entities;
 
+import com.practice.GutenStore.model.dto.businessLogic.AuthorDTO;
 import com.practice.GutenStore.model.dto.businessLogic.DataBook;
 import jakarta.persistence.*;
 import lombok.*;
@@ -42,7 +43,7 @@ public class Book {
     public Book(DataBook dataBook) {
          this.title = dataBook.title();
          this.lang = dataBook.languages() != null ? String.join(", ", dataBook.languages()) : "";
-         this.formats = new Formats(dataBook.formats().poster(), dataBook.formats().e_book());
+         this.formats = new Formats(dataBook.formats());
          this.numberDownloads = dataBook.numberDownloads();
     }
 }

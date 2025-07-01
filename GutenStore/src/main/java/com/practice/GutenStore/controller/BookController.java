@@ -34,9 +34,8 @@ public class BookController {
                 });
     }
     //Listar libros en base de datos
-    /*
     @GetMapping("/books")
-    public Mono<ResponseEntity<Page<Book>>> getAllBooks(@PageableDefault(size = 5) Pageable pageable){
-        return
-    }*/
+    public ResponseEntity<Page<DataBook>> getAllBooks(@PageableDefault(size = 5) Pageable pageable){
+        return ResponseEntity.ok().body(gutenStoreService.serviceGetBooksActive(pageable));
+    }
 }
