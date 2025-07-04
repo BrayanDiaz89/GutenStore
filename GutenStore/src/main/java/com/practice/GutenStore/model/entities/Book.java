@@ -21,8 +21,8 @@ public class Book {
     private Long id_book;
     @Column(unique = true, nullable = false)
     private String title;
-
-    private String lang;
+    @Column(name= "lang")
+    private String languages;
     
     @Embedded
     private Formats formats;
@@ -42,7 +42,7 @@ public class Book {
 
     public Book(DataBook dataBook) {
          this.title = dataBook.title();
-         this.lang = dataBook.languages() != null ? String.join(", ", dataBook.languages()) : "";
+         this.languages = dataBook.languages() != null ? String.join(", ", dataBook.languages()) : "";
          this.formats = new Formats(dataBook.formats());
          this.numberDownloads = dataBook.numberDownloads();
     }

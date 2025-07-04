@@ -1,10 +1,13 @@
 package com.practice.GutenStore.service.apiConnection;
 
 import com.practice.GutenStore.model.dto.api.GutendexAPIResponse;
+import com.practice.GutenStore.model.dto.businessLogic.BookPageResponse;
 import com.practice.GutenStore.model.dto.businessLogic.DataBook;
 import com.practice.GutenStore.model.dto.businessLogic.SaveResult;
+import com.practice.GutenStore.model.entities.Book;
 import com.practice.GutenStore.model.repository.BookRepository;
 import com.practice.GutenStore.service.apiConnection.components.SaveToDB;
+import com.practice.GutenStore.service.mapper.BookMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,6 +20,8 @@ public class GutenStoreResponseService {
     private SaveToDB saveToDB;
     @Autowired
     private BookRepository bookRepository;
+    @Autowired
+    private BookMapper bookMapper;
 
     public SaveResult serviceResponse(GutendexAPIResponse data){
         if(data.books() == null || data.books().isEmpty()){
@@ -26,7 +31,8 @@ public class GutenStoreResponseService {
     }
 
     public Page<DataBook> serviceGetBooksActive(Pageable pageable) {
-        return bookRepository.findByIsActiveTrue(pageable);
+        return bookRepository.findByIsActiveTrue(pageable)
+                .map(book -> bookMapper.toDataBook(book));
     }
 
 }
