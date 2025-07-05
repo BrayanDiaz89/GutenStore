@@ -35,11 +35,20 @@ public class AuthorService {
                 ));
     }
 
-    public Page<AuthorDTO> getAuthorsBetweenDates(
+    //Ver autores entre una fecha de nacimiento inicio y fin
+    public Page<AuthorDTO> getAuthorsBetweenDatesBirthYear(
                                                 Integer birthStart,
                                                 Integer birthEnd,
                                                 Pageable pageable) {
         return authorRepository.findByBirthYearBetween(birthStart, birthEnd, pageable)
                 .map(author -> new AuthorMapper().toDataAuthor(author));
+    }
+
+    public Page<AuthorDTO> getAuthorsBetweenDatesDeathYear(
+                                                Integer deathStart,
+                                                Integer deathEnd,
+                                                Pageable pageable) {
+    return authorRepository.findByDeathYearBetween(deathStart, deathEnd, pageable)
+            .map(author -> new AuthorMapper().toDataAuthor(author));
     }
 }

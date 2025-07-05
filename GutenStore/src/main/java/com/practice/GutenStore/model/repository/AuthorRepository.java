@@ -31,4 +31,13 @@ public interface AuthorRepository extends JpaRepository<Author, Long> {
            ORDER BY a.nameAuthor
            """)
     Page<Author> findByBirthYearBetween(Integer birthStart, Integer birthEnd, Pageable pageable);
+
+    //Ver autores que fallecieron en cierto rango
+    @Query("""
+           SELECT a FROM Author a
+           WHERE a.deathYear BETWEEN :deathStart AND :deathEnd
+           ORDER BY a.nameAuthor 
+           """)
+    Page<Author> findByDeathYearBetween(Integer deathStart, Integer deathEnd, Pageable pageable);
+
 }

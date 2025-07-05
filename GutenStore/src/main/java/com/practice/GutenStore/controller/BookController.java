@@ -3,6 +3,7 @@ package com.practice.GutenStore.controller;
 import com.practice.GutenStore.model.dto.businessLogic.BookPageResponse;
 import com.practice.GutenStore.model.dto.businessLogic.DataBook;
 import com.practice.GutenStore.model.dto.api.RequestDTO;
+import com.practice.GutenStore.model.entities.service.BookService;
 import com.practice.GutenStore.service.apiConnection.GetDataGutendexService;
 import com.practice.GutenStore.service.apiConnection.GutenStoreResponseService;
 import jakarta.validation.Valid;
@@ -23,6 +24,8 @@ public class BookController {
     private GetDataGutendexService getData;
     @Autowired
     private GutenStoreResponseService gutenStoreService;
+    @Autowired
+    private BookService bookService;
 
     @PostMapping("/book")
     public Mono<ResponseEntity<DataBook>> getDataGutendex(@RequestBody @Valid RequestDTO request) {
@@ -38,6 +41,13 @@ public class BookController {
     @GetMapping("/books")
     public ResponseEntity<BookPageResponse> getAllBooksActive(@PageableDefault(size = 5) Pageable pageable){
         var booksPage = gutenStoreService.serviceGetBooksActive(pageable);
+        return ResponseEntity.ok().body(new BookPageResponse(booksPage));
+    }
+
+    @GetMapping("/books/{lang}")
+    public ResponseEntity<BookPageResponse> getAllBooksByLanguage(@PageableDefault(size = 5) Pageable pageable,
+                                                                  @PathVariable("lang") String lang){
+        var booksPage = bookService.getAllBooksByLanguage(lang, pageable);
         return ResponseEntity.ok().body(new BookPageResponse(booksPage));
     }
 

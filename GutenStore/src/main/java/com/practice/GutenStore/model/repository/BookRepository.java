@@ -13,4 +13,7 @@ public interface BookRepository extends JpaRepository<Book, Long> {
     Optional<Book> findByTitle(String title);
     Page<Book> findByIsActiveTrue(Pageable pageable);
 
+    //Obtener todos los libros de un lenguaje
+    Page<Book> findByLanguages(String language, Pageable pageable);
+
 }

@@ -41,7 +41,16 @@ public class AuthorController {
                                                                          @PathVariable("birthStart") Integer birthStart,
                                                                          @PathVariable("birthEnd") Integer birthEnd,
                                                                          Pageable pageable) {
-        var authorsPage = authorService.getAuthorsBetweenDates(birthStart, birthEnd, pageable);
+        var authorsPage = authorService.getAuthorsBetweenDatesBirthYear(birthStart, birthEnd, pageable);
+        return ResponseEntity.ok().body(new AuthorsPageReponse(authorsPage));
+    }
+
+    @GetMapping("/between-dates-death/{deathStart}/{deathEnd}")
+    public ResponseEntity<AuthorsPageReponse> getAuthorsBetweenDatesDeathYear(@PageableDefault(size = 5)
+                                                                              @PathVariable("deathStart") Integer deathStart,
+                                                                              @PathVariable("deathEnd") Integer deathEnd,
+                                                                              Pageable pageable) {
+        var authorsPage = authorService.getAuthorsBetweenDatesDeathYear(deathStart, deathEnd, pageable);
         return ResponseEntity.ok().body(new AuthorsPageReponse(authorsPage));
     }
 
