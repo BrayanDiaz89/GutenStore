@@ -45,5 +45,6 @@ public class Book {
          this.languages = dataBook.languages() != null ? String.join(", ", dataBook.languages()) : "";
          this.formats = new Formats(dataBook.formats());
          this.numberDownloads = dataBook.numberDownloads();
+         this.isActive = true;
     }
 }

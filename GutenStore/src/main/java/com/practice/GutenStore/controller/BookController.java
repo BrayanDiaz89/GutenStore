@@ -1,8 +1,8 @@
 package com.practice.GutenStore.controller;
 
+import com.practice.GutenStore.model.dto.businessLogic.BookPageResponse;
 import com.practice.GutenStore.model.dto.businessLogic.DataBook;
 import com.practice.GutenStore.model.dto.api.RequestDTO;
-import com.practice.GutenStore.model.entities.Book;
 import com.practice.GutenStore.service.apiConnection.GetDataGutendexService;
 import com.practice.GutenStore.service.apiConnection.GutenStoreResponseService;
 import jakarta.validation.Valid;
@@ -33,9 +33,12 @@ public class BookController {
                     return ResponseEntity.status(status).body(saveResult.dataBook());
                 });
     }
+
     //Listar libros en base de datos
     @GetMapping("/books")
-    public ResponseEntity<Page<DataBook>> getAllBooks(@PageableDefault(size = 5) Pageable pageable){
-        return ResponseEntity.ok().body(gutenStoreService.serviceGetBooksActive(pageable));
+    public ResponseEntity<BookPageResponse> getAllBooksActive(@PageableDefault(size = 5) Pageable pageable){
+        var booksPage = gutenStoreService.serviceGetBooksActive(pageable);
+        return ResponseEntity.ok().body(new BookPageResponse(booksPage));
     }
+
 }

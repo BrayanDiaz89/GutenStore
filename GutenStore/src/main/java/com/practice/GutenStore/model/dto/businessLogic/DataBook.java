@@ -12,6 +12,7 @@ public record DataBook(
         List<AuthorDTO> authors,
         List<String> languages,
         FormatsDTO formats,
-        @JsonAlias("download_count") Integer numberDownloads
+        @JsonAlias("download_count") Integer numberDownloads,
+        Boolean isActive
 ) {
 }

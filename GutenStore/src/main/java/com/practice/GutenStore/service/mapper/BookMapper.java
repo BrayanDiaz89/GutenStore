@@ -28,7 +28,8 @@ public class BookMapper {
                 book.getFormats() != null ?
                         new FormatsDTO(book.getFormats().getPoster(), book.getFormats().getE_book()) :
                         null,
-                book.getNumberDownloads()
+                book.getNumberDownloads(),
+                book.getIsActive()
         );
     }
 }
