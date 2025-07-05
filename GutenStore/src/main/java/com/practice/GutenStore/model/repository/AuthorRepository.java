@@ -24,4 +24,11 @@ public interface AuthorRepository extends JpaRepository<Author, Long> {
             nativeQuery = true)
     Page<Author> findDistinctAuthors(Pageable pageable);
 
+    //Ver autores que nacieron en cierto rango
+    @Query("""
+           SELECT a FROM Author a
+           WHERE a.birthYear BETWEEN :birthStart AND :birthEnd
+           ORDER BY a.nameAuthor
+           """)
+    Page<Author> findByBirthYearBetween(Integer birthStart, Integer birthEnd, Pageable pageable);
 }
