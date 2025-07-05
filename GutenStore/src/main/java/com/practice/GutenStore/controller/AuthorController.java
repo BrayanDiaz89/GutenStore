@@ -29,7 +29,7 @@ public class AuthorController {
     //Listar a todos los autores con sus libros
     @GetMapping("/with-books")
     public ResponseEntity<AuthorsBooksPageResponse> getDistinctAuthorsWithBooks(@PageableDefault(size = 5) Pageable pageable) {
-        var pageAuthorWithBooks = authorService.getAllAuthorsWithBooks(null, pageable);
+        var pageAuthorWithBooks = authorService.getAllAuthorsWithBooks(pageable);
         return ResponseEntity.ok().body(new AuthorsBooksPageResponse(pageAuthorWithBooks));
     }
 
@@ -66,7 +66,7 @@ public class AuthorController {
     public ResponseEntity<AuthorsBooksPageResponse> getAuthorsWithBooksByName(@PageableDefault(size = 5)
                                                                               @RequestParam("nameAuthor") String nameAuthor,
                                                                               Pageable pageable) {
-        var authorsPage = authorService.getAllAuthorsWithBooks(nameAuthor, pageable);
+        var authorsPage = authorService.getAllAuthorsWithBooksByNameAuthor(nameAuthor, pageable);
         return ResponseEntity.ok().body(new AuthorsBooksPageResponse(authorsPage));
     }
 

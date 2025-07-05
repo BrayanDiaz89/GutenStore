@@ -21,8 +21,7 @@ public class AuthorService {
                 .map(author -> new AuthorMapper().toDataAuthor(author));
     }
 
-    public Page<AuthorsWithBooks> getAllAuthorsWithBooks(String nameAuthor, Pageable pageable) {
-        if (nameAuthor == null) {
+    public Page<AuthorsWithBooks> getAllAuthorsWithBooks(Pageable pageable) {
             return authorRepository.findDistinctAuthors(pageable)
                     .map(author -> new AuthorsWithBooks(
                             author.getIdAuthor(),
@@ -35,6 +34,7 @@ public class AuthorService {
                                     .toList()
                     ));
         }
+    public Page<AuthorsWithBooks> getAllAuthorsWithBooksByNameAuthor(String nameAuthor, Pageable pageable) {
         return authorRepository.findDistinctAuthorsByName(nameAuthor, pageable)
                 .map(author -> new AuthorsWithBooks(
                         author.getIdAuthor(),
