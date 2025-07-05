@@ -51,4 +51,12 @@ public class BookController {
         return ResponseEntity.ok().body(new BookPageResponse(booksPage));
     }
 
+    //Listar libros de un autor específico
+    @GetMapping("/books/search")
+    public ResponseEntity<BookPageResponse> getAllBooksByAuthorName(@PageableDefault(size = 5) Pageable pageable,
+                                                                    @RequestParam("nameAuthor") String nameAuthor){
+        var booksPage = bookService.getAllBooksByAuthorName(nameAuthor, pageable);
+        return ResponseEntity.ok().body(new BookPageResponse(booksPage));
+    }
+
 }

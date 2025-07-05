@@ -24,6 +24,16 @@ public interface AuthorRepository extends JpaRepository<Author, Long> {
             nativeQuery = true)
     Page<Author> findDistinctAuthors(Pageable pageable);
 
+    //Obtener a todos los autores en paginación por nombre
+    @Query(value = """
+    SELECT DISTINCT ON (a.name_author, a.birth_year, a.death_year) a.*
+    FROM authors a WHERE LOWER(a.name_author) LIKE LOWER(CONCAT('%', :nameAuthor, '%'))
+    ORDER BY a.name_author, a.birth_year, a.death_year, a.id_author
+    """,
+            countQuery = "SELECT COUNT(*) FROM (SELECT DISTINCT ON (name_author, birth_year, death_year) 1 FROM authors) AS count_sub",
+            nativeQuery = true)
+    Page<Author> findDistinctAuthorsByName(String nameAuthor, Pageable pageable);
+
     //Ver autores que nacieron en cierto rango
     @Query("""
            SELECT a FROM Author a
@@ -39,5 +49,12 @@ public interface AuthorRepository extends JpaRepository<Author, Long> {
            ORDER BY a.nameAuthor 
            """)
     Page<Author> findByDeathYearBetween(Integer deathStart, Integer deathEnd, Pageable pageable);
+    //Buscar a uno o mas autores por su nombre
+    @Query("""
+           SELECT a FROM Author a
+           WHERE LOWER(a.nameAuthor) LIKE LOWER(CONCAT('%', :nameAuthor, '%'))
+           ORDER BY a.nameAuthor
+           """)
+    Page<Author> findByNameAuthor(String nameAuthor, Pageable pageable);
 
 }

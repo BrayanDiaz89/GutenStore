@@ -20,4 +20,10 @@ public class BookService {
                 .map(book -> new BookMapper().toDataBook(book));
     }
 
+    public Page<DataBook> getAllBooksByAuthorName(String authorName,
+                                                  Pageable pageable){
+        return bookRepository.findAllBooksByAuthorName(authorName, pageable)
+                .map(book -> new BookMapper().toDataBook(book));
+    }
+
 }

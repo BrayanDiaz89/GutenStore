@@ -21,8 +21,21 @@ public class AuthorService {
                 .map(author -> new AuthorMapper().toDataAuthor(author));
     }
 
-    public Page<AuthorsWithBooks> getAllAuthorsWithBooks(Pageable pageable) {
-        return authorRepository.findDistinctAuthors(pageable)
+    public Page<AuthorsWithBooks> getAllAuthorsWithBooks(String nameAuthor, Pageable pageable) {
+        if (nameAuthor == null) {
+            return authorRepository.findDistinctAuthors(pageable)
+                    .map(author -> new AuthorsWithBooks(
+                            author.getIdAuthor(),
+                            author.getNameAuthor(),
+                            author.getBirthYear(),
+                            author.getDeathYear(),
+                            author.getBooks().stream()
+                                    .map(book -> new BookSummaryDTO(book.getId_book(),
+                                            book.getTitle()))
+                                    .toList()
+                    ));
+        }
+        return authorRepository.findDistinctAuthorsByName(nameAuthor, pageable)
                 .map(author -> new AuthorsWithBooks(
                         author.getIdAuthor(),
                         author.getNameAuthor(),
@@ -30,7 +43,7 @@ public class AuthorService {
                         author.getDeathYear(),
                         author.getBooks().stream()
                                 .map(book -> new BookSummaryDTO(book.getId_book(),
-                                                                book.getTitle()))
+                                        book.getTitle()))
                                 .toList()
                 ));
     }
@@ -50,5 +63,10 @@ public class AuthorService {
                                                 Pageable pageable) {
     return authorRepository.findByDeathYearBetween(deathStart, deathEnd, pageable)
             .map(author -> new AuthorMapper().toDataAuthor(author));
+    }
+
+    public Page<AuthorDTO> getAuthorsByName(String nameAuthor, Pageable pageable) {
+        return authorRepository.findByNameAuthor(nameAuthor, pageable)
+                .map(author -> new AuthorMapper().toDataAuthor(author));
     }
 }
