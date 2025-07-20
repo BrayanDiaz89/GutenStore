@@ -29,7 +29,8 @@ public class Book {
     @Column(name = "number_downloads")
     private Integer numberDownloads;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER,
+                cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
             name = "title_authors",
             joinColumns = @JoinColumn(name = "id_book"),

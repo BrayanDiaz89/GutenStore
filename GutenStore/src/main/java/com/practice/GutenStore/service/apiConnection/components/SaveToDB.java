@@ -8,6 +8,7 @@ import com.practice.GutenStore.model.entities.Author;
 import com.practice.GutenStore.model.entities.Book;
 import com.practice.GutenStore.model.repository.AuthorRepository;
 import com.practice.GutenStore.model.repository.BookRepository;
+import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -16,6 +17,7 @@ import java.util.Optional;
 
 @Slf4j
 @Component
+@Transactional
 public class SaveToDB {
 
     @Autowired
@@ -57,12 +59,12 @@ public class SaveToDB {
                 authorNew.setNameAuthor(authorDTO.authorName());
                 authorNew.setBirthYear(authorDTO.birthYear());
                 authorNew.setDeathYear(authorDTO.deathYear());
-                return authorNew;
+                return authorRepository.save(authorNew);
                 });
 
             book.getAuthors().add(author);
 
-            }
+        }
         log.info("Success. Book saved to Data Base");
         bookRepository.save(book);
 

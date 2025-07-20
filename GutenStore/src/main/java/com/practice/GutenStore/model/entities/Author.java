@@ -26,7 +26,9 @@ public class Author {
     @Column(name = "death_year")
     private Integer deathYear;
 
-    @ManyToMany(mappedBy = "authors", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "authors",
+                cascade = {CascadeType.PERSIST, CascadeType.MERGE},
+                fetch = FetchType.EAGER)
     private List<Book> books = new ArrayList<>();
 
 }

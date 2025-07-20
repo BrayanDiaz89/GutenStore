@@ -3,6 +3,7 @@ package com.practice.GutenStore.controller;
 import com.practice.GutenStore.model.dto.businessLogic.BookPageResponse;
 import com.practice.GutenStore.model.dto.businessLogic.DataBook;
 import com.practice.GutenStore.model.dto.api.RequestDTO;
+import com.practice.GutenStore.model.dto.businessLogic.ListBooksResponse;
 import com.practice.GutenStore.model.entities.service.BookService;
 import com.practice.GutenStore.service.apiConnection.GetDataGutendexService;
 import com.practice.GutenStore.service.apiConnection.GutenStoreResponseService;
@@ -27,6 +28,7 @@ public class BookController {
     @Autowired
     private BookService bookService;
 
+    //Buscar un libro en la base de datos, si no existe, lo trae de la api Gutendex y lo guarda en BD.
     @PostMapping("/book")
     public Mono<ResponseEntity<DataBook>> getDataGutendex(@RequestBody @Valid RequestDTO request) {
         return getData.getDataFromGutendex(request)
@@ -44,9 +46,10 @@ public class BookController {
         return ResponseEntity.ok().body(new BookPageResponse(booksPage));
     }
 
-    @GetMapping("/books/{lang}")
+    //Listar libros por lenguajes
+    @GetMapping("/books/lang")
     public ResponseEntity<BookPageResponse> getAllBooksByLanguage(@PageableDefault(size = 5) Pageable pageable,
-                                                                  @PathVariable("lang") String lang){
+                                                                  @RequestParam("languages") String lang) {
         var booksPage = bookService.getAllBooksByLanguage(lang, pageable);
         return ResponseEntity.ok().body(new BookPageResponse(booksPage));
     }
@@ -59,4 +62,9 @@ public class BookController {
         return ResponseEntity.ok().body(new BookPageResponse(booksPage));
     }
 
+    @GetMapping("/books/top10Downloads")
+    public ResponseEntity<ListBooksResponse> getTop10BooksNumberDownloads() {
+        var booksTopList = bookService.getTop10BooksNumberDownloads();
+        return ResponseEntity.ok().body(booksTopList);
+    }
 }

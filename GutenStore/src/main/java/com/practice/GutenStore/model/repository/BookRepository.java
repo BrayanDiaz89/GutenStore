@@ -1,6 +1,7 @@
 package com.practice.GutenStore.model.repository;
 
 import com.practice.GutenStore.model.dto.businessLogic.DataBook;
+import com.practice.GutenStore.model.dto.businessLogic.ListBooksResponse;
 import com.practice.GutenStore.model.entities.Book;
 import lombok.extern.java.Log;
 import org.springframework.data.domain.Page;
@@ -8,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface BookRepository extends JpaRepository<Book, Long> {
@@ -25,4 +27,10 @@ public interface BookRepository extends JpaRepository<Book, Long> {
           """)
     Page<Book> findAllBooksByAuthorName(String nameAuthor, Pageable pageable);
 
+    @Query(value = """
+           SELECT * FROM books
+           ORDER BY number_downloads DESC
+           LIMIT 10
+           """, nativeQuery = true)
+    List<Book> getTop10BooksNumberDownloads();
 }

@@ -11,8 +11,8 @@ import java.util.Optional;
 public interface AuthorRepository extends JpaRepository<Author, Long> {
 
     Optional<Author> findByNameAuthorAndBirthYearAndDeathYear(String nameAuthor,
-                                                              Integer BirthYear,
-                                                              Integer DeathYear);
+                                                              Integer birthYear,
+                                                              Integer deathYear);
 
     //Obtener a todos los autores en paginación, sin que se repitan
     @Query(value = """
